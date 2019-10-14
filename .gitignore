@@ -1,0 +1,8 @@
+node_modules
+coverage
+.vscode
+psql_queries
+misc
+dist
+scripts
+package-lock.json

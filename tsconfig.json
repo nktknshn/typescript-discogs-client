@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "strict": true, /* Enable all strict type-checking options. */
+    "module": "commonjs",
+    "outDir": "dist",
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
+    "noErrorTruncation": true,
+    "declaration": true /* Generates corresponding '.d.ts' file. */
+    // "lib": ["es2016", "dom"] // I need DOM because of typedoc..
+    // "watch": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/tests/**/*.ts"
+  ]
+}
