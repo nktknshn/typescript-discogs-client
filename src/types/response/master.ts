@@ -1,3 +1,7 @@
+import { Image } from "./image";
+import { Video } from "./video";
+import { EntityArtist } from "./entityArtist";
+
 export interface Master {
     styles?:                 string[];
     genres?:                 string[];
@@ -9,7 +13,7 @@ export interface Master {
     notes?:                  string;
     main_release_url:        string;
     uri:                     string;
-    artists:                 MasterArtist[];
+    artists:                 EntityArtist[];
     versions_url:            string;
     data_quality:            string;
     most_recent_release_url: string;
@@ -21,37 +25,11 @@ export interface Master {
     tracklist:               MasterTrack[];
 }
 
-export interface MasterArtist {
-    join:         string;
-    name:         string;
-    anv:          string;
-    tracks:       string;
-    role:         string;
-    resource_url: string;
-    id:           number;
-}
-
-export interface Image {
-    uri:          string;
-    height:       number;
-    width:        number;
-    resource_url: string;
-    type:         string;
-    uri150:       string;
-}
-
 export interface MasterTrack {
     duration:      string;
     position:      string;
     type_:         string;
     title:         string;
-    extraartists?: MasterArtist[];
+    extraartists?: EntityArtist[];
 }
 
-export interface Video {
-    duration:    number;
-    description: string;
-    embed:       boolean;
-    uri:         string;
-    title:       string;
-}

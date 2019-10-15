@@ -34,7 +34,12 @@ export interface Available {
 
 export interface Version {
     status:        string;
-    stats:         Stats;
+    stats: {
+      community: {
+        in_collection: number;
+        in_wantlist: number;
+      };
+    };
     thumb:         string;
     format:        string;
     country:       string;
@@ -45,13 +50,4 @@ export interface Version {
     catno:         string;
     resource_url:  string;
     id:            number;
-}
-
-export interface Stats {
-    community: Community;
-}
-
-export interface Community {
-    in_collection: number;
-    in_wantlist:   number;
 }

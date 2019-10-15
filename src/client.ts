@@ -1,79 +1,48 @@
 import Axios from "axios";
 import Debug from 'debug';
-import * as Types from './types';
+import { SearchQuery, GetArtistReleasesOpts, GetMasterVersionsOpts, PaginationOpts } from "./types/query";
+import { SearchResponse, GetArtistResponse, GetArtistReleasesResponse, GetMasterResponse, GetMasterVersionsResponse, GetReleaseResponse, GetLabelResponse, GetLabelReleasesResponse, GetReleaseRatingByUserResponse, GetCommunityReleaseRatingResponse } from "./types/response";
 
 const debug = Debug('discogs-client')
 
 type Response<T> = Promise<T>
 
-type PaginationOpts = {
-  page?: number,
-  per_page?: number
-}
-
 type Options = {
   auth?: { token: string } | { key: string, secret: string }
-}
-
-type GetArtistReleasesOpts = {
-  sort?: "year" | "title" | "format"
-} & PaginationOpts
-
-type GetMasterVersionsOpts = {
-  format?: string,
-  label?: string,
-  country?: string,
-  sort?: "released" | "title" | "format" | "label" | "catno" | "country",
-  sort_order?: "asc" | "desc"
-} & PaginationOpts
-
-function makeQueryString(q: { [key: string]: number | string }): string {
-  return Object.keys(q)
-    .filter(k => q[k] !== undefined)
-    .map(k => `${k.toString()}=${encodeURIComponent(q[k].toString())}`)
-    .join("&");
-}
-
-export class DiscogsError extends Error {
-  constructor(message?: string, public readonly code?: number) {
-    super(message);
-    Object.setPrototypeOf(this, new.target.prototype);
-    this.name = DiscogsError.name;
-  }
 }
 
 export class Client {
 
   constructor(public readonly options: Options = {}) { }
 
-  search = (q: Types.SearchQuery): Response<Types.SearchResponse> =>
+  search = (q: SearchQuery): Response<SearchResponse> =>
     this._query("/database/search", q);
 
-  getArtist = (artistId: number): Response<Types.Artist> =>
+  getArtist = (artistId: number): Response<GetArtistResponse> =>
     this._query(`/artists/${artistId}`)
 
-  getArtistReleases = (artistId: number, opts?: GetArtistReleasesOpts): Response<Types.ArtistReleasesResponse> =>
+  getArtistReleases = (artistId: number, opts?: GetArtistReleasesOpts): Response<GetArtistReleasesResponse> =>
     this._query(`/artists/${artistId}/releases`, opts)
 
-  getMaster = (masterId: number): Response<Types.Master> =>
+  getMaster = (masterId: number): Response<GetMasterResponse> =>
     this._query(`/masters/${masterId}`)
 
-  getMasterVersions = (masterId: number, opts?: GetMasterVersionsOpts): Response<Types.MasterVersionsResponse> =>
+  getMasterVersions = (masterId: number, opts?: GetMasterVersionsOpts): Response<GetMasterVersionsResponse> =>
     this._query(`/masters/${masterId}/versions`, opts)
 
-  getRelease = (releaseId: number): Response<Types.Release> =>
+  getRelease = (releaseId: number): Response<GetReleaseResponse> =>
     this._query(`/releases/${releaseId}`)
 
-  getLabel = (labelId: number): Response<Types.Label> =>
+  getLabel = (labelId: number): Response<GetLabelResponse> =>
     this._query(`/labels/${labelId}`)
 
-  getLabelReleases = (labelId: number, opts?: PaginationOpts): Response<Types.LabelReleasesResponse> =>
+  getLabelReleases = (labelId: number, opts?: PaginationOpts): Response<GetLabelReleasesResponse> =>
     this._query(`/labels/${labelId}/releases`, opts)
 
-  getReleaseRatingByUser = (releaseId: number, username: string): Response<Types.ReleaseRatingByUser> =>
+  getReleaseRatingByUser = (releaseId: number, username: string): Response<GetReleaseRatingByUserResponse> =>
     this._query(`/releases/${releaseId}/rating/${username}`)
 
-  getCommunityReleaseRating = (releaseId: number): Response<Types.CommunityReleaseRating> =>
+  getCommunityReleaseRating = (releaseId: number): Response<GetCommunityReleaseRatingResponse> =>
     this._query(`/releases/${releaseId}/rating`)
 
   private _authorizationQueryString = this.options.auth ? makeQueryString(this.options.auth) : ''
@@ -81,13 +50,13 @@ export class Client {
   private _query = <T>(uri: string, q?: object): Response<T> => {
     const url = this._buildUrl(uri, q)
     debug(url)
-    return this._makeGetHttpRequest(url)
+    return this._doHttpGetRequest(url)
   }
 
   private _buildUrl = <T extends {}>(path: string, query?: T) =>
     'https://api.discogs.com' + path + '?' + this._authorizationQueryString + (query !== undefined ? '&' + makeQueryString(query) : '')
 
-  private _makeGetHttpRequest = <T>(url: string) =>
+  private _doHttpGetRequest = <T>(url: string) =>
     Axios.get<T>(url).then(resp => {
 
       const
@@ -104,4 +73,19 @@ export class Client {
       else
         throw new DiscogsError(String(reason))
     })
+}
+
+function makeQueryString(q: { [key: string]: number | string }): string {
+  return Object.keys(q)
+    .filter(k => q[k] !== undefined)
+    .map(k => `${k.toString()}=${encodeURIComponent(q[k].toString())}`)
+    .join("&");
+}
+
+export class DiscogsError extends Error {
+  constructor(message?: string, public readonly code?: number) {
+    super(message);
+    Object.setPrototypeOf(this, new.target.prototype);
+    this.name = DiscogsError.name;
+  }
 }

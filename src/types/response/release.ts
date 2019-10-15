@@ -1,8 +1,12 @@
+import { Image } from "./image";
+import { Video } from "./video";
+import { EntityArtist } from "./entityArtist";
+
 export interface Release {
     identifiers:         Identifier[];
     series:              any[];
     labels:              Company[];
-    community:           Community;
+    community:           ReleaseCommunity;
     year:                number;
     images?:             Image[];
     format_quantity:     number;
@@ -12,14 +16,14 @@ export interface Release {
     thumb:               string;
     num_for_sale:        number;
     title:               string;
-    artists:             ReleaseArtist[];
+    artists:             EntityArtist[];
     date_changed:        Date | null;
     lowest_price:        number | null;
     status:              string;
     released_formatted?: string;
     released?:           string;
     date_added:          Date | null;
-    extraartists:        ReleaseArtist[];
+    extraartists:        EntityArtist[];
     country?:            string;
     notes?:              string;
     tracklist:           ReleaseTrack[];
@@ -35,17 +39,7 @@ export interface Release {
     master_url?:         string;
 }
 
-export interface ReleaseArtist {
-    join:         string;
-    name:         string;
-    anv:          string;
-    tracks:       string;
-    role:         string;
-    resource_url: string;
-    id:           number;
-}
-
-export interface Community {
+export interface ReleaseCommunity {
     status:       string;
     rating:       Rating;
     want:         number;
@@ -87,28 +81,12 @@ export interface Identifier {
     description?: string;
 }
 
-export interface Image {
-    uri:          string;
-    height:       number;
-    width:        number;
-    resource_url: string;
-    type:         string;
-    uri150:       string;
-}
-
 export interface ReleaseTrack {
     duration:      string;
     position:      string;
     type_:         string;
-    artists?:      ReleaseArtist[];
+    artists?:      EntityArtist[];
     title:         string;
-    extraartists?: ReleaseArtist[];
+    extraartists?: EntityArtist[];
 }
 
-export interface Video {
-    duration:    number;
-    description: string;
-    embed:       boolean;
-    uri:         string;
-    title:       string;
-}

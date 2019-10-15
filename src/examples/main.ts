@@ -12,7 +12,7 @@ async function main() {
     }
   })
 
-  const { results } = await discogs.search({ query: "Pink Floyd" })
+  const { results } = await discogs.search({ query: "Pink Floyd",  })
 
   const { releases: page1, pagination: { pages } } =
     await discogs.getArtistReleases(

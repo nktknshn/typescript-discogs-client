@@ -1,3 +1,5 @@
+import { Image } from "./image";
+
 export interface Label {
     profile?:      string;
     releases_url:  string;
@@ -9,13 +11,4 @@ export interface Label {
     resource_url:  string;
     id:            number;
     data_quality:  string;
-}
-
-export interface Image {
-    uri:          string;
-    height:       number;
-    width:        number;
-    resource_url: string;
-    type:         string;
-    uri150:       string;
 }

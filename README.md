@@ -1,5 +1,5 @@
 ## About
-This is is a simple client for Discogs. Types were generated with [quicktype](https://quicktype.io/) from a variety of API calls so they are quite accurate. Only database endpoint is implemented.
+This is a simple client for Discogs. Types were generated with [quicktype](https://quicktype.io/) from a variety of API calls so they are quite accurate. Only database endpoint is implemented.
 
 ## Usage
 

@@ -1,32 +1,26 @@
+import { Image } from "./image";
+
 export interface Artist {
     profile:         string;
     releases_url:    string;
     name:            string;
     namevariations?: string[];
     uri:             string;
-    members?:        Alias[];
+    members?:        ArtistAlias[];
     urls?:           string[];
     images?:         Image[];
     resource_url:    string;
-    aliases?:        Alias[];
+    aliases?:        ArtistAlias[];
     id:              number;
     data_quality:    string;
     realname?:       string;
-    groups?:         Alias[];
+    groups?:         ArtistAlias[];
 }
 
-export interface Alias {
+export interface ArtistAlias {
     resource_url: string;
     id:           number;
     name:         string;
     active?:      boolean;
 }
 
-export interface Image {
-    uri:          string;
-    height:       number;
-    width:        number;
-    resource_url: string;
-    type:         string;
-    uri150:       string;
-}
