@@ -6,7 +6,7 @@ export interface SearchArtist {
   cover_image: string;
   resource_url: string;
   master_id: null;
-  type: 'artist';
+  type: "artist";
   id: number;
   user_data?: {
     in_collection: boolean;

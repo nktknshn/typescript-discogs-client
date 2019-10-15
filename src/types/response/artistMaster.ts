@@ -12,6 +12,6 @@ export interface ArtistMaster {
   role: string;
   year?: number;
   resource_url: string;
-  type: 'master';
+  type: "master";
   id: number;
 }

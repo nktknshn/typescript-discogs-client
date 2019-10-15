@@ -18,10 +18,10 @@ export interface SearchMaster {
   title: string;
   resource_url: string;
   master_id: number;
-  type: 'master';
+  type: "master";
   id: number;
   user_data?: {
     in_collection: boolean;
     in_wantlist: boolean;
-  }
+  };
 }

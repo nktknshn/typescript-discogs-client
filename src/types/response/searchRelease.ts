@@ -3,7 +3,7 @@ export interface SearchRelease {
   barcode: string[];
   thumb: string;
   title: string;
-  type: 'release';
+  type: "release";
   format: string[];
   uri: string;
   community: {
@@ -25,7 +25,7 @@ export interface SearchRelease {
   user_data?: {
     in_collection: boolean;
     in_wantlist: boolean;
-  }
+  };
 }
 
 interface Format {

@@ -6,10 +6,10 @@ export interface SearchLabel {
   cover_image: string;
   resource_url: string;
   master_id: null;
-  type: 'label';
+  type: "label";
   id: number;
   user_data?: {
     in_collection: boolean;
     in_wantlist: boolean;
-  }
+  };
 }

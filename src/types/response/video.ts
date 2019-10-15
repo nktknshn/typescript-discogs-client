@@ -1,7 +1,7 @@
 export interface Video {
-  duration:    number;
+  duration: number;
   description: string;
-  embed:       boolean;
-  uri:         string;
-  title:       string;
+  embed: boolean;
+  uri: string;
+  title: string;
 }

@@ -14,8 +14,7 @@ export interface ArtistRelease {
   year?: number;
   resource_url: string;
   artist: string;
-  type: 'release';
+  type: "release";
   id: number;
   trackinfo?: string;
 }
-
